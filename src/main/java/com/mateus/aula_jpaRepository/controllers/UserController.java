@@ -34,13 +34,13 @@ public class UserController {
 
     @GetMapping(value = "/search-salary")
     public ResponseEntity<Page<User>> searchBySalary(@RequestParam(defaultValue = "0") Double minSalary, @RequestParam(defaultValue = "1000000000000000") Double maxSalary, Pageable pageable) {
-        Page<User> result = repository.searchSalary(minSalary, maxSalary, pageable);
+        Page<User> result = repository.findBySalaryBetween(minSalary, maxSalary, pageable);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = "/search-name")
     public ResponseEntity<Page<User>> searchByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-        Page<User> result = repository.searchName(name, pageable);
+        Page<User> result = repository.findByNameContainingIgnoreCase(name, pageable);
         return ResponseEntity.ok(result);
     }
 }
